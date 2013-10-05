@@ -1,0 +1,59 @@
+<html>
+      <head>
+ <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+ <script type="text/javascript">
+	
+
+	$(document).ready(function() {
+		console.log("is ready");
+	});
+	
+
+
+	function senddata(){
+		
+		 usrval1 = $("input[name=usrval1]").val();
+         usrval2 = $("input[name=usrval2]").val();
+         useraction = $("input:radio[name=useraction]:checked").val();
+         
+         
+	$.ajax({
+           url: 'Testservelet',
+           dataType: 'json',
+           data: {usrval1: usrval1, usrval2: usrval2, useraction: useraction},
+           type: 'post',
+           success: function(response)
+           {
+            $("#result").text(response);
+           },
+           error: function(request, textStatus, errorThrown)
+           {
+             console.log("error:" + textStatus);
+           },
+          
+         });
+	}
+ 
+ </script>
+ </head>
+      
+      
+<body>
+      <h1> <center> Example of Servlet</center> </h1>
+      <b> Mathematics</b>
+      <hr>
+      <form method="post">
+<font size=5 face="Times New Roman">
+      <input type="radio" name="useraction" value="add" checked>Addition</input><br>
+      <input type="radio" name="useraction" value="mul" >Multiplication</input><br>
+      <input type="radio" name="useraction" value="div" >Division</input><br>
+</font>
+<br><br>
+Enter first Value &nbsp &nbsp &nbsp<input type="text" name="usrval1" value=""><br>
+Enter second Value &nbsp<input type="text" name="usrval2" value=""><br>
+<input type="button" value="submit" name="result" onclick="senddata()">
+      </form>
+      Result from server
+      <div id = "result"></div>
+</body>
+</html>
